@@ -66,10 +66,11 @@ jobs:
     - name: Copy quality reports to output
       run: |
         mkdir -p output/jacoco
-        cp -r target/site/* output/
-    #    cp -r target/site/jacoco/* output/jacoco/
-    #    cp target/site/checkstyle.html output/
-    #    cp target/site/pmd.html output/
+        
+        cp -r target/site/jacoco/* output/jacoco/
+        cp target/site/checkstyle.html output/
+        cp target/site/pmd.html output/
+#cp -r target/site/* output/
 
     - name: Upload JaCoCo Coverage Report
       uses: actions/upload-artifact@v4
