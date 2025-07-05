@@ -44,7 +44,7 @@ jobs:
         mvn checkstyle:checkstyle || \
         # Si aún falla, continuar sin fallar el build
         echo "Warning: Checkstyle failed but continuing build"
-      continue-on-error: true
+      continue-on-error: false
 
     # Ejecutar PMD con manejo de errores
     - name: Run PMD (code quality checker)
@@ -52,7 +52,7 @@ jobs:
         mvn pmd:check || \
         mvn pmd:pmd || \
         echo "Warning: PMD failed but continuing build"
-      continue-on-error: true
+      continue-on-error: false
 
     - name: Generate static HTML with Java
       run: mvn exec:java -Dexec.mainClass="com.proyecto.calidad.Main"
@@ -65,6 +65,24 @@ jobs:
           mkdir -p output
           echo "<html><body><h1>Build completed successfully</h1></body></html>" > output/index.html
         fi
+
+    - name: Upload JaCoCo Coverage Report
+      uses: actions/upload-artifact@v4
+      with:
+        name: jacoco-report
+        path: target/site/jacoco/
+
+    - name: Upload Checkstyle Report (HTML)
+      uses: actions/upload-artifact@v4
+      with:
+        name: checkstyle-report
+        path: target/site/checkstyle.html
+
+    - name: Upload PMD Report (HTML)
+      uses: actions/upload-artifact@v4
+      with:
+        name: pmd-report
+        path: target/site/pmd.html
 
     # Paso 5: Prepara GitHub Pages para recibir los archivos
     - name: Setup Pages
