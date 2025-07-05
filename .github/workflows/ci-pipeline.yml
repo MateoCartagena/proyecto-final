@@ -38,9 +38,6 @@ jobs:
     # Ejecutar Checkstyle con manejo de errores
     - name: Run Checkstyle (style checker)
       run: |
-        # Intentar con el plugin actualizado primero
-        mvn org.apache.maven.plugins:maven-checkstyle-plugin:3.4.0:check || \
-        # Si falla, usar checkstyle:checkstyle en lugar de check
         mvn checkstyle:checkstyle || \
         # Si aún falla, continuar sin fallar el build
         echo "Warning: Checkstyle failed but continuing build"
