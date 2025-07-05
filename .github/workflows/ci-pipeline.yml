@@ -55,7 +55,7 @@ jobs:
       continue-on-error: true
 
     - name: Generate static HTML with Java
-      run: mvn exec:java -Dexec.mainClass="com.example.Main"
+      run: mvn exec:java -Dexec.mainClass="com.proyecto.calidad.Main"
 
     # Verificar que el directorio output existe
     - name: Check output directory
