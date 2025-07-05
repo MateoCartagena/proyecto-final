@@ -63,6 +63,13 @@ jobs:
           echo "<html><body><h1>Build completed successfully</h1></body></html>" > output/index.html
         fi
 
+    - name: Copy quality reports to output
+      run: |
+        mkdir -p output/jacoco
+        cp -r target/site/jacoco/* output/jacoco/
+        cp target/site/checkstyle.html output/
+        cp target/site/pmd.html output/
+
     - name: Upload JaCoCo Coverage Report
       uses: actions/upload-artifact@v4
       with:
